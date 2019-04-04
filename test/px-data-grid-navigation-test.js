@@ -18,10 +18,13 @@
 document.addEventListener('WebComponentsReady', () => {
   describe('navigation (paging) component tests', () => {
 
-    let navigation;
+    let
+      navigation,
+      pageSizeSelector;
 
     beforeEach((done) => {
       navigation = fixture('simple-navigation');
+      pageSizeSelector = navigation.shadowRoot.querySelector('.page-size-select');
 
       Polymer.RenderStatus.afterNextRender(navigation, () => {
         setTimeout(() => { // IE11
@@ -79,6 +82,9 @@ document.addEventListener('WebComponentsReady', () => {
       navigation.pageSize = 20;
       Polymer.flush();
       expect(navigation.pageSize).to.be.eql(getSelectedPageSize());
+      setTimeout(() => {
+        expect(pageSizeSelector).to.be.visible;
+      });
       done();
     });
 
@@ -89,7 +95,10 @@ document.addEventListener('WebComponentsReady', () => {
       const pageSizes2 = [100, 200, 300];
       navigation.selectablePageSizes = pageSizes2;
       Polymer.flush();
-      setTimeout(() => expect(getAvailablePageSizes()).to.be.eql(pageSizes2));
+      setTimeout(() => {
+        expect(getAvailablePageSizes()).to.be.eql(pageSizes2);
+        expect(pageSizeSelector).to.be.visible;
+      });
       done();
     });
 
