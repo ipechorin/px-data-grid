@@ -142,9 +142,9 @@ document.addEventListener('WebComponentsReady', () => {
       grid.tableData = tableData; // 5 rows
       grid.autoHidePageSizeSelect = true;
       const pageSizes = [5, 10, 20];
-      navigation.selectablePageSizes = pageSizes;
+      grid.selectablePageSizes = pageSizes;
       Polymer.flush();
-      setTimeout(() => expect(pageSizeSelector).to.not.be.visible);
+      expect(pageSizeSelector).to.not.be.visible;
       done();
     });
 
@@ -152,9 +152,9 @@ document.addEventListener('WebComponentsReady', () => {
       grid.tableData = tableData; // 5 rows
       grid.autoHidePageSizeSelect = true;
       const pageSizes = [2, 4, 8];
-      navigation.selectablePageSizes = pageSizes;
+      grid.selectablePageSizes = pageSizes;
       Polymer.flush();
-      setTimeout(() => expect(pageSizeSelector).to.be.visible);
+      expect(pageSizeSelector).to.be.visible;
       done();
     });
   });

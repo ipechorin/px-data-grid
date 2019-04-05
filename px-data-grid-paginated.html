@@ -74,7 +74,7 @@ limitations under the License.
       current-page="[[page]]"
       number-of-pages="[[_calcNumPages(size, pageSize)]]"
       hide-page-list="[[_hidePageList(autoHidePageList, size, pageSize)]]"
-      hide-page-size-select="[[_hidePageSizeSelect(autoHidePageSizeSelect, size)]]"
+      hide-page-size-select="[[_hidePageSizeSelect(autoHidePageSizeSelect, size, selectablePageSizes)]]"
       language="[[language]]"
       resources="[[resources]]">
     </px-data-grid-navigation>
@@ -1217,8 +1217,9 @@ limitations under the License.
           return autoHidePageList && this._calcNumPages(size, pageSize) === 1;
         }
 
-        _hidePageSizeSelect(autoHidePageSizeSelect, size) {
-          return autoHidePageSizeSelect && this._calcNumPages(size, Math.min(...this.selectablePageSizes)) === 1;
+        _hidePageSizeSelect(autoHidePageSizeSelect, size, selectablePageSizes) {
+          return autoHidePageSizeSelect &&
+            this._calcNumPages(size, Math.min.apply(null, selectablePageSizes)) === 1;
         }
 
         /**

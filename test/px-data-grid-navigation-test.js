@@ -18,13 +18,10 @@
 document.addEventListener('WebComponentsReady', () => {
   describe('navigation (paging) component tests', () => {
 
-    let
-      navigation,
-      pageSizeSelector;
+    let navigation;
 
     beforeEach((done) => {
       navigation = fixture('simple-navigation');
-      pageSizeSelector = navigation.shadowRoot.querySelector('.page-size-select');
 
       Polymer.RenderStatus.afterNextRender(navigation, () => {
         setTimeout(() => { // IE11
@@ -75,6 +72,10 @@ document.addEventListener('WebComponentsReady', () => {
       return parseInt(navigation.shadowRoot.querySelector('.page-number.selected').innerText);
     }
 
+    function getPageSizeSelector() {
+      return navigation.shadowRoot.querySelector('.page-size-select');
+    }
+
     it('should display proper page size', (done) => {
       // check init page size
       expect(navigation.pageSize).to.be.eql(getSelectedPageSize());
@@ -82,9 +83,7 @@ document.addEventListener('WebComponentsReady', () => {
       navigation.pageSize = 20;
       Polymer.flush();
       expect(navigation.pageSize).to.be.eql(getSelectedPageSize());
-      setTimeout(() => {
-        expect(pageSizeSelector).to.be.visible;
-      });
+      expect(getPageSizeSelector()).to.be.visible;
       done();
     });
 
@@ -97,9 +96,9 @@ document.addEventListener('WebComponentsReady', () => {
       Polymer.flush();
       setTimeout(() => {
         expect(getAvailablePageSizes()).to.be.eql(pageSizes2);
-        expect(pageSizeSelector).to.be.visible;
+        expect(getPageSizeSelector()).to.be.visible;
+        done();
       });
-      done();
     });
 
     it('should display proper row ranges', (done) => {
